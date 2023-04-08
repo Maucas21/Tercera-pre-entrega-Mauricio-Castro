@@ -2,6 +2,11 @@ from django.shortcuts import render,redirect
 
 # Create your views here.
 
+def mi_vista(request):
+    
+    return render(request, r"appinicio/index.html")
+    
+    
 def primer_template(request):
     
     datos = {"nombre":"juanito"}
