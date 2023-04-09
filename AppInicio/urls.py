@@ -1,9 +1,9 @@
 from django.urls import path
-from AppInicio.views import primer_template,mostrar_m,mi_vista
+from AppInicio.views import primer_template,mostrar_m,Inicio
 
 
 urlpatterns = [
-    path('',mi_vista),
-    path('tem/',primer_template),
-    path('m/',mostrar_m),
+    path('',Inicio, name="inicio"),
+    path('tem/',primer_template, name="tem"),
+    path('m/',mostrar_m,name="m"),   
 ]
