@@ -1,5 +1,12 @@
 from django.shortcuts import render,redirect
 from datetime import datetime
+from AppInicio.models import Tarea
+from django.views.generic.list import ListView
+from django.views.generic import TemplateView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView
+from django.urls import reverse_lazy
+
 
 # Create your views here.
 
@@ -20,13 +27,22 @@ def mostrar_m(request):
     
     return render(request, r"appinicio/mostrar_m.html",datos)
 
-# def mostrar_fecha(request):
-#     dt = datetime.now()
-#     dt_formateado = dt.strftime ("%A %d %B %Y %I :%M")
-#     fecha = {"fecha":dt_formateado}
 
-#     return render(request, r"appinicio/mostrar_fecha.html",fecha)
+class ListaPendientes(ListView):
+    model = Tarea
+    template_name = "appinicio/lista_tareas.html"
 
-# def data_time(request):
-#     current_datetime = datetime.now()
-#     return render(request, 'appinicio/data_time.html', {'current_datetime': current_datetime})
+    
+class DetalleTarea(DetailView):
+    model = Tarea
+    template_name = "appinicio/tarea.html"
+    context_object_name = "tarea"
+    
+    
+class CrearTarea(CreateView):
+    model = Tarea
+    template_name = "appinicio/crear_tarea.html"
+    fields = '__all__'
+    success_url = reverse_lazy("AppInicio")
+    
+    
