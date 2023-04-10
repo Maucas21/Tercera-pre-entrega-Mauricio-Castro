@@ -1,0 +1,9 @@
+<a href={% url 'pendientes' %}>Volver</a>
+
+<form action="" method="post">
+
+    {% csrf_token %}
+    <p>Eliminaras esa tarea: {{tarea}}</p>
+    <input type="submit" value="Eliminar">
+
+</form>
