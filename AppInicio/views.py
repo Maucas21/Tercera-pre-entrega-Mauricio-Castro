@@ -49,8 +49,6 @@ def Inicio(request):
 
 def mostrar(request):
     
-    # datos = {"m":"es un lindo dia"}
-    
     return render(request, r"appinicio/mostrar.html")
 
 
