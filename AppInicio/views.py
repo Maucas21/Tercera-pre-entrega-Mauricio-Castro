@@ -4,7 +4,9 @@ from AppInicio.models import Tarea
 from django.views.generic.list import ListView
 from django.views.generic import TemplateView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView,UpdateView,DeleteView
+from django.views.generic.edit import CreateView,UpdateView,DeleteView,FormView
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
 from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -19,6 +21,25 @@ class Logueo(LoginView):
     
     def get_success_url(self):
         return reverse_lazy("pendientes")
+
+
+class PaginaRegistro(FormView):
+    
+    template_name = "appinicio/registro.html"
+    form_class = UserCreationForm
+    redirect_authenticated_user = True
+    success_url = reverse_lazy("pendientes")
+    
+    def form_valid(self, form):
+        usuario = form.save()
+        if usuario is not None:
+            login(self.request, usuario)
+        return super(PaginaRegistro, self).form_valid(form)
+    
+        def get(self, *args, **kwargs):
+            if self.request.user.is_authenticated:
+                return redirect('pendientes')
+        return super(PaginaRegistro, self).get(*args, **kwargs)
 
 
 def Inicio(request):
@@ -48,6 +69,14 @@ class ListaPendientes(LoginRequiredMixin,ListView):
         context = super().get_context_data(**kwargs)
         context["tareas"] = context["tareas"].filter(usuario=self.request.user)
         context["count"] = context["tareas"].filter(completo=False).count()
+        
+        valor_buscar = self.request.GET.get("area-buscar") or ""
+        
+        if valor_buscar: 
+            context["tareas"] = context["tareas"].filter(titulo__icontains=valor_buscar) 
+            
+        context["valor_buscar"] = valor_buscar
+            
         return context
     
 

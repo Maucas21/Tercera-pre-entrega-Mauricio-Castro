@@ -1,10 +1,11 @@
 from django.urls import path
-from AppInicio.views import primer_template,mostrar_m,Inicio,ListaPendientes,DetalleTarea,CrearTarea,EditarTarea,EliminarTarea,Logueo
+from AppInicio.views import primer_template,mostrar_m,Inicio,ListaPendientes,DetalleTarea,CrearTarea,EditarTarea,EliminarTarea,Logueo,PaginaRegistro
 from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('',Inicio, name="inicio"),
     path('login',Logueo.as_view(),name="login"),
+    path('registro',PaginaRegistro.as_view(),name="registro"),
     path('logout',LogoutView.as_view(next_page="login"),name="logout"),
     path('tem/',primer_template, name="tem"),
     path('m/',mostrar_m,name="m"),
