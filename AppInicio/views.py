@@ -46,18 +46,12 @@ def Inicio(request):
     
     return render(request, r"appinicio/index.html")
     
-    
-def primer_template(request):
-    
-    datos = {"nombre":"juanito"}
-    
-    return render(request, r"appinicio/primer_template.html",datos)
 
-def mostrar_m(request):
+def mostrar(request):
     
     # datos = {"m":"es un lindo dia"}
     
-    return render(request, r"appinicio/mostrar_m.html")
+    return render(request, r"appinicio/mostrar.html")
 
 
 class ListaPendientes(LoginRequiredMixin,ListView):

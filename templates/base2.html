@@ -22,11 +22,8 @@
         <!-- Navigation-->
         <nav class="navbar navbar-light bg-light static-top">
             <div class="container">
-                <a class="btn btn-primary" href="#!">Registrarse</a>
-                <a class="navbar-brand" href={% url 'inicio' %}>Inicio</a>
-                <a class="navbar-brand" href={% url 'm' %}>mostrar_m</a>
-                <a class="navbar-brand" href={% url 'tem' %}>primer_template</a>
-                <a class="btn btn-primary" href="#signup">Iniciar seccion</a>
+                <a class="btn btn-primary" href={% url 'inicio' %}>Inicio</a>
+                {% comment %} <a class="btn btn-primary" href={% url 'Admin tareas' %}>Admin tareas</a> {% endcomment %}
                     {% comment %} Menu
                     <i class="fas fa-bars"></i>
                 </button>
