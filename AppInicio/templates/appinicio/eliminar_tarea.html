@@ -1,9 +1,25 @@
-<a href={% url 'pendientes' %}>Volver</a>
+{% extends 'appinicio/principal_tareas.html' %}
 
-<form action="" method="post">
+{% load static %}
 
-    {% csrf_token %}
-    <p>Eliminaras esa tarea: {{tarea}}</p>
-    <input type="submit" value="Eliminar">
+{% block contenido %}
 
-</form>
+<div class="barra-superior">
+    <a href={% url 'pendientes' %}>&#x1F830;Volver</a>
+    <a href={% url 'inicio' %}>Inicio</a>
+</div>
+
+<div class="cuerpo-tarjea">
+
+    <form action="" method="post">
+
+        {% csrf_token %}
+        <p>Eliminaras la tarea: {{tareas}}</p>
+        <input class="boton" type="submit" value="Eliminar">
+    
+    </form>
+
+</div>
+
+
+{% endblock contenido %}

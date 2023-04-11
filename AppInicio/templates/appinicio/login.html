@@ -1,9 +1,27 @@
-<h1>Ingresar</h1>
+{% extends 'appinicio/principal_tareas.html' %}
 
-<form action="" method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-    <input type="submit" value="Ingresar">
-</form>
+{% load static %}
 
-<p>No tienes una cuenta?<a href={% url 'registro' %}>Registrate</a></p>
+{% block contenido %}
+
+<div class="barra-superior">
+    <h1>Ingresar</h1>
+    {% comment %} <a href={% url 'pendientes' %}>&#x1F830;Volver</a>
+    <a href={% url 'inicio' %}>Inicio</a> {% endcomment %}
+</div>
+
+<div class="cuerpo-tarjeta">
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input class="boton" type="submit" value="Ingresar">
+    </form>
+
+    <p>No tienes una cuenta?<a href={% url 'registro' %}>Registrate</a></p>
+    
+</div>
+
+
+
+{% endblock contenido %}

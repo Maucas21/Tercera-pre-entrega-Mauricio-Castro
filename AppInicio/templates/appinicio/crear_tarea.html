@@ -1,12 +1,28 @@
-<h1>Formulario de tareas</h1>
-<a href={% url 'pendientes' %}>Volver</a>
-<a href={% url 'inicio' %}>Inicio</a>
+{% extends 'appinicio/principal_tareas.html' %}
 
-<form action="" method="POST">
+
+{% block contenido %}
+
+<div class="barra-superior">
+    <a href={% url 'pendientes' %}>&#x1F830;Volver</a>
+    <a href={% url 'inicio' %}>Inicio</a>
+</div>
+
+<div class="cuerpo-tarjeta">
+
+    <form action="" method="POST">
     
-    {% csrf_token %}
-    {{form.as_p}}
+        {% csrf_token %}
+        {{form.as_p}}
+    
+        <input class="boton" type="submit" value="Enviar">
+    
+    </form>
 
-    <input type="submit" value="Enviar">
+</div>
 
-</form>
+
+
+
+
+{% endblock contenido %}
