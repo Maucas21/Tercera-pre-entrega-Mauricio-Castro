@@ -7,6 +7,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView,UpdateView,DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 # Create your views here.
@@ -38,35 +39,46 @@ def mostrar_m(request):
     return render(request, r"appinicio/mostrar_m.html")
 
 
-class ListaPendientes(ListView):
+class ListaPendientes(LoginRequiredMixin,ListView):
     model = Tarea
     template_name = "appinicio/lista_tareas.html"
-
+    context_object_name = "tareas"
     
-class DetalleTarea(DetailView):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["tareas"] = context["tareas"].filter(usuario=self.request.user)
+        context["count"] = context["tareas"].filter(completo=False).count()
+        return context
+    
+
+class DetalleTarea(LoginRequiredMixin,DetailView):
     model = Tarea
     template_name = "appinicio/tarea.html"
-    context_object_name = "tarea"
+    context_object_name = "tareas"
     
     
-class CrearTarea(CreateView):
+class CrearTarea(LoginRequiredMixin,CreateView):
     model = Tarea
     template_name = "appinicio/crear_tarea.html"
-    fields = '__all__'
+    fields = ["titulo","descripcion","completo"]
     success_url = reverse_lazy("pendientes")
+    
+    def form_valid(self, form):
+        form.instance.usuario = self.request.user
+        return super(CrearTarea, self).form_valid(form)
     
 
-class EditarTarea(UpdateView):
+class EditarTarea(LoginRequiredMixin,UpdateView):
     model = Tarea
     template_name = "appinicio/crear_tarea.html"
-    fields = '__all__'
+    fields = ["titulo","descripcion","completo"]
     success_url = reverse_lazy("pendientes")
     
     
-class EliminarTarea(DeleteView):
+class EliminarTarea(LoginRequiredMixin,DeleteView):
     model = Tarea
     template_name = "appinicio/eliminar_tarea.html"
-    context_object_name = "tarea"
+    context_object_name = "tareas"
     success_url = reverse_lazy("pendientes")
     
     
